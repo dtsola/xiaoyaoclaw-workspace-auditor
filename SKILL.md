@@ -12,9 +12,7 @@ description: >
   （tracker PROGRESS.md）、记忆日志空窗（memory-distill 约定）、知识库索引
   同步与孤儿文件（kb-retriever data_structure.md）、垃圾/临时文件；通过零依赖
   Python 脚本（scan_workspace.py，纯标准库）输出分级报告（🔴/🟡/🟢）与修复
-  建议。只读不修：脚本永不修改/删除任何文件。与 xiaoyaoclaw-workspace-initializer
-  （目录规范）、xiaoyaoclaw-memory-distill（记忆蒸馏）、xiaoyaoclaw-task-progress-tracker
-  （任务进度）、xiaoyaoclaw-kb-retriever（知识库检索）组成五件套。
+  建议。只读不修：脚本永不修改/删除任何文件。
 ---
 
 # OpenClaw Workspace Auditor（工作区体检）
