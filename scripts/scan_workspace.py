@@ -47,6 +47,12 @@ NAME_EXEMPT = {
     "CHANGELOG.md", "CONTRIBUTING.md", "hero.svg", "community-qr.png",
 }
 
+# 项目内部结构目录：命名由项目自身决定，auditor 不检查（上游保留/模板/原始数据等）
+INTERNAL_DIR_NAMES = {
+    "references", "templates", "raw", "docs", "scripts", "assets", "tests",
+    "test", "examples", "dist", "build", "output", "outputs", "tmp", "archive",
+}
+
 # 正则
 RE_KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+)*$")
 RE_SNAKE = re.compile(r"^[a-z0-9_]+\.py$")
@@ -136,6 +142,55 @@ class Auditor:
                 self.add("root-nonmd", "yellow", cat, item.name,
                          "根目录存在非 *.md 文件（规范：根目录只放配置文件）",
                          "把文件移到 projects/ tasks/ outputs/ 等对应目录")
+
+        # 命名规范（内容目录：projects/tasks/knowledge；中文名与系统文件豁免）
+        # 先扫根目录一级子目录（非标准/非系统目录的命名与存在性）
+        for item in sorted(self.root.iterdir()):
+            if not item.is_dir() or is_system_dir(item.name) or item.name.startswith("."):
+                continue
+            if item.name in STANDARD_DIRS:
+                continue
+            if has_cjk(item.name):
+                continue
+            if not RE_KEBAB.match(item.name):
+                self.add("name-dir", "yellow", cat, item.name,
+                         f"根目录子目录名不符合 kebab-case: {item.name}",
+                         "重命名为小写+连字符，或归入标准目录")
+        # 再扫内容目录递归
+        for area in ("projects", "tasks", "knowledge"):
+            base = self.root / area
+            if not base.is_dir():
+                continue
+            for dirpath, dirnames, filenames in os.walk(base):
+                dirnames[:] = [d for d in dirnames
+                               if not is_system_dir(d) and d not in INTERNAL_DIR_NAMES]
+                rel_dir = Path(dirpath).relative_to(self.root).as_posix()
+                for d in dirnames:
+                    if d in NAME_EXEMPT or has_cjk(d):
+                        continue
+                    if not RE_KEBAB.match(d):
+                        self.add("name-dir", "yellow", cat, f"{rel_dir}/{d}",
+                                 f"目录名不符合 kebab-case: {d}",
+                                 "重命名为小写+连字符（如 my-project）")
+                for fn in filenames:
+                    if fn.startswith(".") or fn in NAME_EXEMPT or has_cjk(fn):
+                        continue
+                    p = Path(fn)
+                    if p.suffix.lower() == ".md":
+                        if not RE_KEBAB.match(fn):
+                            self.add("name-md", "yellow", cat, f"{rel_dir}/{fn}",
+                                     f"md 文件名不符合 kebab-case: {fn}",
+                                     "重命名为小写+连字符（如 project-overview.md）")
+                    elif p.suffix.lower() == ".py":
+                        if not RE_SNAKE.match(fn):
+                            self.add("name-py", "yellow", cat, f"{rel_dir}/{fn}",
+                                     f"Python 文件名不符合 snake_case: {fn}",
+                                     "重命名为小写+下划线（如 parse_data.py）")
+                    elif p.suffix.lower() in (".js", ".ts", ".jsx", ".tsx"):
+                        if not RE_CAMEL.match(fn):
+                            self.add("name-js", "yellow", cat, f"{rel_dir}/{fn}",
+                                     f"JS/TS 文件名不符合 camelCase: {fn}",
+                                     "重命名为小驼峰（如 generateImage.js）")
 
     # ============ 2. 任务健康 ============
     def check_tasks(self):
@@ -229,12 +284,14 @@ class Auditor:
         files = walk_files(kb)
         root_files = []
         for rel in files:
+            if rel == "data_structure.md":
+                continue  # 索引文件自身：不参与孤儿/散文件/类型检查
             # 根目录散文件
             if "/" not in rel:
                 root_files.append(rel)
-            # 类型支持
+            # 类型支持（始终检查，与索引是否存在无关）
             ext = Path(rel).suffix.lower()
-            if ext and ext not in KB_SUPPORTED_EXTS and not index_txt:
+            if ext and ext not in KB_SUPPORTED_EXTS:
                 self.add("kb-unsupported", "yellow", cat, f"knowledge/{rel}",
                          f"类型 {ext} 不受 kb-retriever 支持（仅 md/pdf/xlsx）",
                          "转换为 md 或归档到其他位置")
