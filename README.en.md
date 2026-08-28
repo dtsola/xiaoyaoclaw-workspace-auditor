@@ -14,7 +14,7 @@
 ![license](https://img.shields.io/badge/license-MIT-green)
 [![ClawHub downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fclawhub.ai%2Fapi%2Fv1%2Fskills%2Fxiaoyaoclaw-workspace-auditor&query=skill.stats.downloads&label=ClawHub%20downloads&color=blue)](https://clawhub.ai/dtsola/skills/xiaoyaoclaw-workspace-auditor)
 
-## Why
+## Why you need it
 
 An OpenClaw agent workspace quietly degrades over time, and **you rarely notice**:
 - 🗂️ **Messy root**: non-md files at the workspace root, arbitrary naming, missing standard directories
@@ -60,9 +60,9 @@ python scripts/scan_workspace.py --json      # JSON output (for automation)
 python scripts/scan_workspace.py --days 60   # custom stale threshold (default 30)
 ```
 
-## 🚀 Quick Start (3 steps, 5 minutes)
+## 🚀 Quick start (3 steps, 5 minutes)
 
-### Step 1: Install
+### Step 1: Install the skill
 
 ```bash
 clawhub install xiaoyaoclaw-workspace-auditor
@@ -86,7 +86,7 @@ Every finding carries a 💡 fix suggestion. **The agent only suggests, never ac
 | Fix KB black holes | Rebuild index via kb-retriever's `build_index.py` |
 | Clean tmp | Report lists stale files; agent cleans only after you confirm |
 
-## vs. Manual Inspection
+## Why not manual inspection?
 
 | | Manual browsing | **xiaoyaoclaw-workspace-auditor** |
 |---|---|---|
@@ -96,48 +96,62 @@ Every finding carries a 💡 fix suggestion. **The agent only suggests, never ac
 | Safety | Easy to delete the wrong thing | ✅ Read-only; deletion only after your confirm |
 | Machine-readable | No | ✅ JSON output, cron-friendly |
 
-## Structure
+## Directory structure
 
-```text
+```
 xiaoyaoclaw-workspace-auditor/
-├── SKILL.md                  # Main skill (triggers / workflow / red lines)
-├── DESIGN.md                 # Design doc (check rules / degradation matrix)
+├── SKILL.md                    # main skill (triggers / workflow / red lines)
 ├── scripts/
-│   └── scan_workspace.py     # The only scanner (zero-dep, 5 categories, dual output)
-├── assets/readme/hero.svg    # README cover
-├── README.md / README.en.md  # Bilingual docs
-└── LICENSE                   # MIT
+│   └── scan_workspace.py       # [core] zero-dependency scanner (5 categories, dual output)
+├── assets/readme/
+│   ├── hero.svg                # README cover
+│   └── community-qr.png        # community QR code
+├── docs/
+│   └── DESIGN.md               # design doc (check rules / degradation matrix)
+├── README.md / README.en.md
+└── LICENSE
 ```
 
 ## License
 
-MIT © dtsola
+MIT — use freely, attribution optional.
 
-## Customize
+---
 
-- **Thresholds**: `--days` (stale days, default 30), `--max-file` (MB, default 50)
-- **Scope**: scans standard directories; add custom checks by extending the `Auditor` class in `scan_workspace.py` (one method per category)
+## 🛠️ Custom development?
 
-## Sister Projects (The Five-Piece Set)
+**Agent & Skills customization, from ¥800.**
 
-OpenClaw workspace autonomy — Home → Content → Status → Knowledge → **Health**:
+- WeChat: `dtsola` (note: **openclaw定制**)
+- Scope: OpenClaw multi-agent deployment / workspace standardization / custom Skill development / agent memory systems / knowledge-base setup
 
-| Piece | Role | Repo |
-|---|---|---|
-| 🏠 workspace-initializer | Home / directory standards | [dtsola/xiaoyaoclaw-workspace-initializer](https://github.com/dtsola/xiaoyaoclaw-workspace-initializer) |
-| 🧠 memory-distill | Content / memory distillation | [dtsola/xiaoyaoclaw-memory-distill](https://github.com/dtsola/xiaoyaoclaw-memory-distill) |
-| 📊 task-progress-tracker | Status / progress tracking | [dtsola/xiaoyaoclaw-task-progress-tracker](https://github.com/dtsola/xiaoyaoclaw-task-progress-tracker) |
-| 📚 kb-retriever | Knowledge / KB retrieval | [dtsola/xiaoyaoclaw-kb-retriever](https://github.com/dtsola/xiaoyaoclaw-kb-retriever) |
-| 🩺 **workspace-auditor** | **Health / workspace audit** | **dtsola/xiaoyaoclaw-workspace-auditor (this repo)** |
+## Sister projects
 
-## 小遥Claw
+- 🏠 **xiaoyaoclaw-workspace-initializer**: give every agent a "home" — standard directory structure + WORKSPACE.md rules + multi-agent config safety. <https://github.com/dtsola/xiaoyaoclaw-workspace-initializer>
+- 🧠 **xiaoyaoclaw-memory-distill**: distill conversations into MEMORY.md + daily logs, solve context overflow. <https://github.com/dtsola/xiaoyaoclaw-memory-distill>
+- 🗂️ **xiaoyaoclaw-task-progress-tracker**: directory-as-container, PROGRESS.md-as-card — tasks/ & projects/ lifecycle management. <https://github.com/dtsola/xiaoyaoclaw-task-progress-tracker>
+- 📚 **xiaoyaoclaw-kb-retriever**: local knowledge-base retrieval — hierarchical data_structure.md index navigation + progressive search over md/pdf/xlsx, no API keys, Windows & macOS. <https://github.com/dtsola/xiaoyaoclaw-kb-retriever>
 
-🚀 Install AI assistants on your own computer: [https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz](https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz)
+## 小遥Claw (XiaoYao Claw)
 
-## Author
+**Put an AI assistant into your own computer.**
 
-**dtsola** · Indie developer · [GitHub](https://github.com/dtsola)
+- 🚀 Landing page: <https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz>
+- 📖 Intro: <https://github.com/dtsola/xiaoyaoclaw-introduction>
 
-## Community
+## About the author
 
-<img src="./assets/readme/community-qr.png" width="160" alt="Community QR">
+- 🌐 Blog: <https://www.dtsola.com>
+- 📺 Bilibili: <https://space.bilibili.com/736015>
+- 💻 GitHub: <https://github.com/dtsola>
+- 📕 Xiaohongshu: <https://www.xiaohongshu.com/user/profile/5b4c0597e8ac2b06aa13346d>
+
+## 💬 Join the community
+
+XiaoYao product family user group — feedback · usage · feature requests:
+
+<p align="center">
+  <img src="./assets/readme/community-qr.png" width="280" alt="XiaoYao AI user group QR code: scan to join, or add WeChat dtsola (note: 加群)">
+</p>
+
+<p align="center">Scan to join, or add WeChat <code>dtsola</code> (note: <b>加群</b>)</p>

@@ -104,46 +104,60 @@ clawhub install xiaoyaoclaw-workspace-auditor
 
 ## 目录结构
 
-```text
+```
 xiaoyaoclaw-workspace-auditor/
-├── SKILL.md                  # 主技能（触发词 / 工作流程 / 红线）
-├── DESIGN.md                 # 设计文档（检查项规则 / 降级矩阵）
+├── SKILL.md                    # 技能主体（触发词 / 工作流程 / 红线）
 ├── scripts/
-│   └── scan_workspace.py     # 唯一扫描脚本（零依赖，5 类检查 + 双输出）
-├── assets/readme/hero.svg    # README 封面
-├── README.md / README.en.md  # 中英双语文档
-└── LICENSE                   # MIT
+│   └── scan_workspace.py       # 【核心】零依赖扫描脚本（5 类检查 + 双输出）
+├── assets/readme/
+│   ├── hero.svg                # README 封面
+│   └── community-qr.png        # 交流群二维码
+├── docs/
+│   └── DESIGN.md               # 设计方案（检查项规则 / 降级矩阵）
+├── README.md / README.en.md
+└── LICENSE
 ```
 
 ## License
 
-MIT © dtsola
+MIT — 随便用，署名可选。
 
-## 定制
+---
 
-- **阈值**：`--days`（超龄天数，默认 30）、`--max-file`（大文件 MB，默认 50）
-- **检查范围**：脚本按标准目录扫描；想加自定义检查项，直接改 `scan_workspace.py` 的 Auditor 类即可（每类一个方法，好扩展）
+## 🛠️ 需要定制？
 
-## 姊妹项目（五件套）
+**Agent & Skills 定制，价格 ¥800 起。**
 
-OpenClaw 工作区自治五件套——家 → 内容 → 状态 → 知识 → **健康**：
+- 微信：`dtsola`（添加好友时备注：**openclaw定制**）
+- 服务范围：OpenClaw 多 agent 部署 / 工作区规范化 / 自定义 Skill 开发 / agent 记忆系统搭建 / 知识库搭建
 
-| 件套 | 定位 | 仓库 |
-|---|---|---|
-| 🏠 workspace-initializer | 家 / 目录规范 | [dtsola/xiaoyaoclaw-workspace-initializer](https://github.com/dtsola/xiaoyaoclaw-workspace-initializer) |
-| 🧠 memory-distill | 内容 / 记忆蒸馏 | [dtsola/xiaoyaoclaw-memory-distill](https://github.com/dtsola/xiaoyaoclaw-memory-distill) |
-| 📊 task-progress-tracker | 状态 / 进度管理 | [dtsola/xiaoyaoclaw-task-progress-tracker](https://github.com/dtsola/xiaoyaoclaw-task-progress-tracker) |
-| 📚 kb-retriever | 知识 / 知识库检索 | [dtsola/xiaoyaoclaw-kb-retriever](https://github.com/dtsola/xiaoyaoclaw-kb-retriever) |
-| 🩺 **workspace-auditor** | **健康 / 工作区体检** | **dtsola/xiaoyaoclaw-workspace-auditor（本仓库）** |
+## 姊妹项目
+
+- 🏠 **xiaoyaoclaw-workspace-initializer**（工作区初始化器）：给每个 agent 一个「家」——标准目录结构 + WORKSPACE.md 规范 + 多 agent 配置安全。<https://github.com/dtsola/xiaoyaoclaw-workspace-initializer>
+- 🧠 **xiaoyaoclaw-memory-distill**（记忆蒸馏）：把对话蒸馏成 MEMORY.md + 日常日志，解决上下文溢出。<https://github.com/dtsola/xiaoyaoclaw-memory-distill>
+- 🗂️ **xiaoyaoclaw-task-progress-tracker**（任务进度跟踪器）：目录即容器，PROGRESS.md 即进度——tasks/ 与 projects/ 生命周期管理。<https://github.com/dtsola/xiaoyaoclaw-task-progress-tracker>
+- 📚 **xiaoyaoclaw-kb-retriever**（知识库检索器）：本地知识库检索——分层 data_structure.md 索引导航 + 渐进式检索（md/pdf/xlsx），无需 API key，Windows / macOS 双平台。<https://github.com/dtsola/xiaoyaoclaw-kb-retriever>
 
 ## 小遥Claw
 
-🚀 让 AI 助手安装到自己的电脑上：[https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz](https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz)
+**小遥Claw，把 AI 助手装进自己的电脑。**
 
-## 作者
+- 🚀 宣传页：<https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz>
+- 📖 介绍页：<https://github.com/dtsola/xiaoyaoclaw-introduction>
 
-**dtsola** · 独立开发者 · [GitHub](https://github.com/dtsola)
+## 关于作者
 
-## 社区
+- 🌐 博客：<https://www.dtsola.com>
+- 📺 B站：<https://space.bilibili.com/736015>
+- 💻 GitHub：<https://github.com/dtsola>
+- 📕 小红书：<https://www.xiaohongshu.com/user/profile/5b4c0597e8ac2b06aa13346d>
 
-<img src="./assets/readme/community-qr.png" width="160" alt="社区二维码">
+## 💬 加入交流群
+
+小遥全系产品用户交流群——产品反馈 · 使用交流 · 功能建议：
+
+<p align="center">
+  <img src="./assets/readme/community-qr.png" width="280" alt="小遥AI 用户交流群二维码：扫码加群，或添加微信 dtsola（备注：加群）">
+</p>
+
+<p align="center">扫码加群，或添加微信 <code>dtsola</code>（备注：<b>加群</b>）</p>
