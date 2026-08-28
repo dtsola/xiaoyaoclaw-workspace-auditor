@@ -1,0 +1,149 @@
+# OpenClaw Workspace Auditor 🩺
+
+<div align="center">
+  <strong>工作区体检（只读审计）</strong> | <a href="README.en.md">🌐 English</a>
+</div>
+
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="OpenClaw Workspace Auditor — read-only workspace health check: directory compliance, task PROGRESS.md health, memory-log gaps, knowledge-base index orphans, junk files. Zero-dependency Python script, graded report with fix suggestions.">
+</p>
+
+> 工作区「质检员」：只读扫描健康度——目录合规、任务进度、记忆日志、知识库索引、垃圾文件，输出分级报告 + 修复建议，永不修改任何文件。
+> OpenClaw read-only workspace auditor: scans directory compliance, task health, memory gaps, knowledge-base index orphans and junk files; outputs a severity-graded report with fix suggestions. Zero-dependency, never modifies a file.
+
+![license](https://img.shields.io/badge/license-MIT-green)
+[![ClawHub downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fclawhub.ai%2Fapi%2Fv1%2Fskills%2Fxiaoyaoclaw-workspace-auditor&query=skill.stats.downloads&label=ClawHub%20downloads&color=blue)](https://clawhub.ai/dtsola/skills/xiaoyaoclaw-workspace-auditor)
+
+## 为什么需要
+
+OpenClaw agent 的工作区用久了会悄悄变乱，且**你自己很难发现**：
+- 🗂️ **目录失序**：根目录混入非 md 文件、命名随意、标准目录缺失
+- 🧟 **任务僵尸**：目录建了 PROGRESS.md 没有、状态没更新、超龄未完结
+- 🕳️ **记忆空窗**：好几天没记日志，长期记忆 MEMORY.md 缺失
+- 🌑 **知识黑洞**：knowledge/ 新文件没进 data_structure.md 索引——kb-retriever 检索不到它
+- 🗑️ **垃圾堆积**：tmp/ 超龄文件、超大文件占用空间
+
+手工翻目录费时且永远不全面。这个 skill 一键解决：**一个零依赖脚本，5 类检查，分级报告，每条带修复建议。**
+
+## 特性
+
+- 🩺 **只读不修**：脚本永不修改/删除/移动任何文件——修复动作由你确认后执行（红线透明）
+- 🗂️ **5 类体检**：目录合规（initializer 规范）· 任务健康（tracker PROGRESS.md）· 记忆健康（memory 日志）· 知识库健康（kb-retriever 索引）· 垃圾/临时文件
+- 📊 **分级报告**：🔴 违规 / 🟡 警告 / 🟢 正常 / ⏭️ 降级跳过，每条附修复建议
+- 🐍 **零依赖**：Python 标准库，无第三方包、无 API key、不联网、数据不出本机
+- 🪜 **渐进式依赖**：没装对应姊妹技能就自动跳过该检查并提示——不会报假阳性，装得越全查得越深
+- 🖥️ **双平台**：Windows / macOS 行为完全一致（纯 Python）
+- 🔁 **双输出**：Markdown 报告给人看，JSON 给程序消费（可挂 cron 定期体检）
+
+## 安装
+
+```bash
+# ClawHub（推荐）
+clawhub install xiaoyaoclaw-workspace-auditor
+
+# 或从 GitHub 手动安装
+git clone https://github.com/dtsola/xiaoyaoclaw-workspace-auditor
+# 把 SKILL.md、scripts/ 放到你的 skills 目录
+```
+
+## 使用
+
+1. 把 skill 放到 OpenClaw 的 skills 目录
+2. 对你的 agent 说：**「体检一下工作区」** / 「审计工作区」 / 「看看工作区乱不乱」
+3. agent 自动运行扫描并给你分级报告 + 修复建议
+
+也可以直接跑脚本：
+
+```bash
+python scripts/scan_workspace.py --report    # Markdown 报告（默认）
+python scripts/scan_workspace.py --json      # JSON 输出（程序消费）
+python scripts/scan_workspace.py --days 60   # 调超龄阈值（默认 30 天）
+```
+
+## 🚀 快速上手（三步，5 分钟）
+
+### Step 1：安装技能
+
+```bash
+clawhub install xiaoyaoclaw-workspace-auditor
+```
+
+装完你的 agent 就多了一项「体检」能力，不需要任何 API key。
+
+### Step 2：跑一次体检
+
+对你的 agent 说一句：
+
+> 体检一下工作区
+
+它会在几秒内扫完整个工作区，给你一份分级报告：哪些目录不合规、哪个任务成了僵尸、知识库有没有黑洞文件、tmp 里堆了什么。
+
+### Step 3：按建议修复（你说了算）
+
+报告每条都带 💡 修复建议。**agent 只建议不代劳**——你确认后它才动手（或引导你用对应姊妹技能修复）。
+
+### 日常使用习惯
+
+| 场景 | 做法 |
+|---|---|
+| 每周体检 | 对你的 agent 说「体检一下工作区」，30 秒看完 |
+| 自动化 | 挂 cron 每周跑 `scan_workspace.py --json`，异常时提醒 |
+| 只看某类问题 | 看报告对应分区（目录合规/任务/记忆/知识库/垃圾） |
+| 修复知识库黑洞 | 按建议跑 kb-retriever 的 `build_index.py` 重建索引 |
+| 清理 tmp | 报告列出超龄文件，你确认后 agent 才清理 |
+
+## 和手动检查对比
+
+| | 手动翻目录 | **xiaoyaoclaw-workspace-auditor** |
+|---|---|---|
+| 覆盖 | 凭印象，总会漏 | ✅ 5 类检查全量扫描，确定性规则 |
+| 一致性 | 每次结果不一样 | ✅ 正则 + 路径匹配，结果可复现 |
+| 工作量 | 翻完还要自己判断 | ✅ 分级报告 + 每条修复建议 |
+| 安全性 | 容易手滑删错 | ✅ 只读不修，删除必须你确认 |
+| 机器可读 | 无 | ✅ JSON 输出，可挂 cron 自动化 |
+
+## 目录结构
+
+```text
+xiaoyaoclaw-workspace-auditor/
+├── SKILL.md                  # 主技能（触发词 / 工作流程 / 红线）
+├── DESIGN.md                 # 设计文档（检查项规则 / 降级矩阵）
+├── scripts/
+│   └── scan_workspace.py     # 唯一扫描脚本（零依赖，5 类检查 + 双输出）
+├── assets/readme/hero.svg    # README 封面
+├── README.md / README.en.md  # 中英双语文档
+└── LICENSE                   # MIT
+```
+
+## License
+
+MIT © dtsola
+
+## 定制
+
+- **阈值**：`--days`（超龄天数，默认 30）、`--max-file`（大文件 MB，默认 50）
+- **检查范围**：脚本按标准目录扫描；想加自定义检查项，直接改 `scan_workspace.py` 的 Auditor 类即可（每类一个方法，好扩展）
+
+## 姊妹项目（五件套）
+
+OpenClaw 工作区自治五件套——家 → 内容 → 状态 → 知识 → **健康**：
+
+| 件套 | 定位 | 仓库 |
+|---|---|---|
+| 🏠 workspace-initializer | 家 / 目录规范 | [dtsola/xiaoyaoclaw-workspace-initializer](https://github.com/dtsola/xiaoyaoclaw-workspace-initializer) |
+| 🧠 memory-distill | 内容 / 记忆蒸馏 | [dtsola/xiaoyaoclaw-memory-distill](https://github.com/dtsola/xiaoyaoclaw-memory-distill) |
+| 📊 task-progress-tracker | 状态 / 进度管理 | [dtsola/xiaoyaoclaw-task-progress-tracker](https://github.com/dtsola/xiaoyaoclaw-task-progress-tracker) |
+| 📚 kb-retriever | 知识 / 知识库检索 | [dtsola/xiaoyaoclaw-kb-retriever](https://github.com/dtsola/xiaoyaoclaw-kb-retriever) |
+| 🩺 **workspace-auditor** | **健康 / 工作区体检** | **dtsola/xiaoyaoclaw-workspace-auditor（本仓库）** |
+
+## 小遥Claw
+
+🚀 让 AI 助手安装到自己的电脑上：[https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz](https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz)
+
+## 作者
+
+**dtsola** · 独立开发者 · [GitHub](https://github.com/dtsola)
+
+## 社区
+
+<img src="./assets/readme/community-qr.png" width="160" alt="社区二维码">
