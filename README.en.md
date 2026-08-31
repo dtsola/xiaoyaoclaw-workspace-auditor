@@ -125,12 +125,14 @@ MIT — use freely, attribution optional.
 - WeChat: `dtsola` (note: **openclaw定制**)
 - Scope: OpenClaw multi-agent deployment / workspace standardization / custom Skill development / agent memory systems / knowledge-base setup
 
-## Sister projects
+## Sister projectss
 
 - 🏠 **xiaoyaoclaw-workspace-initializer**: give every agent a "home" — standard directory structure + WORKSPACE.md rules + multi-agent config safety. <https://github.com/dtsola/xiaoyaoclaw-workspace-initializer>
 - 🧠 **xiaoyaoclaw-memory-distill**: distill conversations into MEMORY.md + daily logs, solve context overflow. <https://github.com/dtsola/xiaoyaoclaw-memory-distill>
 - 🗂️ **xiaoyaoclaw-task-progress-tracker**: directory-as-container, PROGRESS.md-as-card — tasks/ & projects/ lifecycle management. <https://github.com/dtsola/xiaoyaoclaw-task-progress-tracker>
 - 📚 **xiaoyaoclaw-kb-retriever**: local knowledge-base retrieval — hierarchical data_structure.md index navigation + progressive search over md/pdf/xlsx, no API keys, Windows & macOS. <https://github.com/dtsola/xiaoyaoclaw-kb-retriever>
 - 📎 **xiaoyaoclaw-web-clipper**: save any web page as clean local Markdown with frontmatter — dual-engine extraction (readability + trafilatura fallback), Chinese-safe filenames, batch clipping with dedup; output lands in knowledge/clippings/ ready for kb-retriever indexing. <https://github.com/dtsola/xiaoyaoclaw-web-clipper>
+- 🤝 **xiaoyaoclaw-agent-orchestrator** (collaboration layer): on top of the seven — split, dispatch, track, aggregate, retry.<https://github.com/dtsola/xiaoyaoclaw-agent-orchestrator>
+- 📊 **xiaoyaoclaw-usage-report**: parse session JSONL to answer how long each task took, which tools/skills/models were used, and how many tokens were consumed — zero dependency, local only, token is the primary metric. <https://github.com/dtsola/xiaoyaoclaw-usage-report>
 
 ## 
