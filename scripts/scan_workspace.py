@@ -47,6 +47,9 @@ NAME_EXEMPT = {
     "CHANGELOG.md", "CONTRIBUTING.md", "hero.svg", "community-qr.png",
 }
 
+# 根目录允许的非 *.md 配置文件（运行约定，豁免 root-nonmd）
+ROOT_FILE_EXEMPT = {"distill-config.json"}
+
 # 项目内部结构目录：命名由项目自身决定，auditor 不检查（上游保留/模板/原始数据等）
 INTERNAL_DIR_NAMES = {
     "references", "templates", "raw", "docs", "scripts", "assets", "tests",
@@ -138,7 +141,8 @@ class Auditor:
         for item in sorted(self.root.iterdir()):
             if item.name.startswith(".") or is_system_dir(item.name):
                 continue
-            if item.is_file() and item.suffix.lower() != ".md":
+            if (item.is_file() and item.suffix.lower() != ".md"
+                    and item.name not in ROOT_FILE_EXEMPT):
                 self.add("root-nonmd", "yellow", cat, item.name,
                          "根目录存在非 *.md 文件（规范：根目录只放配置文件）",
                          "把文件移到 projects/ tasks/ outputs/ 等对应目录")
