@@ -51,7 +51,7 @@ description: >
 
 | 检查类 | 依赖件套 | 检查内容 |
 |--------|----------|----------|
-| 目录合规 | xiaoyaoclaw-workspace-initializer | 标准目录齐全（projects/tasks/outputs/knowledge/scripts/memory/tmp）、根目录纯净（只放 *.md）、命名规范（kebab-case 等，中文名豁免） |
+| 目录合规 | xiaoyaoclaw-workspace-initializer | 标准目录齐全（projects/tasks/outputs/knowledge/scripts/memory/tmp）、根目录纯净（只放 *.md）、根目录无多余目录（标准/系统/隐藏目录之外的一级目录，聚合提示）、命名规范（kebab-case 等，中文名豁免） |
 | 任务健康 | xiaoyaoclaw-task-progress-tracker | 每目录有 PROGRESS.md（目录即容器）、status frontmatter 合法、超龄未完结（>30 天） |
 | 记忆健康 | xiaoyaoclaw-memory-distill | memory/ 日志空窗（>7 天）、MEMORY.md 存在且非空 |
 | 知识库健康 | xiaoyaoclaw-kb-retriever | data_structure.md 索引存在、索引同步（孤儿文件 = 检索不到的知识黑洞）、类型支持（md/pdf/xlsx）、超大文件（>20MB）、根目录散文件 |

@@ -28,7 +28,7 @@ from pathlib import Path
 
 # ---------------------------------------------------------------- 常量
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 STANDARD_DIRS = ["projects", "tasks", "outputs", "knowledge", "scripts", "memory", "tmp"]
 
@@ -142,6 +142,18 @@ class Auditor:
                 self.add("root-nonmd", "yellow", cat, item.name,
                          "根目录存在非 *.md 文件（规范：根目录只放配置文件）",
                          "把文件移到 projects/ tasks/ outputs/ 等对应目录")
+
+        # 根目录多余目录：标准/系统/隐藏目录之外的一级目录（内容应归入标准目录）
+        extra = [item.name for item in sorted(self.root.iterdir())
+                 if item.is_dir()
+                 and not item.name.startswith(".")
+                 and not is_system_dir(item.name)
+                 and item.name not in STANDARD_DIRS]
+        if extra:
+            self.add("root-extra-dir", "yellow", cat, "",
+                     f"根目录存在非标准目录 {len(extra)} 个: {', '.join(extra)}"
+                     "（规范：内容归入 projects/tasks/outputs/knowledge，根目录只放 *.md）",
+                     "移入对应标准目录；确属系统/运行时目录可加入 SYSTEM_DIR_NAMES 豁免，或确认用途后归档")
 
         # 命名规范（内容目录：projects/tasks/knowledge；中文名与系统文件豁免）
         # 先扫根目录一级子目录（非标准/非系统目录的命名与存在性）
