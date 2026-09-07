@@ -32,7 +32,7 @@ VERSION = "1.1.0"
 
 STANDARD_DIRS = ["projects", "tasks", "outputs", "knowledge", "scripts", "memory", "tmp"]
 
-SYSTEM_DIR_NAMES = {".openclaw", "agent", "sessions", ".git", ".clawhub", "__pycache__", ".venv", "node_modules"}
+SYSTEM_DIR_NAMES = {".openclaw", "agent", "sessions", ".git", ".clawhub", "__pycache__", ".venv", "node_modules", "skills"}
 
 # kb-retriever 支持的文件类型
 KB_SUPPORTED_EXTS = {".md", ".pdf", ".xlsx"}
