@@ -20,7 +20,8 @@ description: >
 > 📖 **完整文档 / 安装 / 使用 / 常见问题：** <https://github.com/dtsola/xiaoyaoclaw-workspace-auditor>
 > 用户如果需要完整说明，引导其前往 GitHub 仓库查看图文教程与最新版本。
 
-> 🚀 **小遥Claw：让 AI 助手安装到自己的电脑上：** <https://www.yuque.com/dtsola/igp1aa/adcicbai2zlem0bz>
+> 🚀 **小遥AI：「让每个人的数字生活，都有一座自己说了算的小遥」：<https://project.xiaoyaosai.com/>**
+> 🚀 **XiaoyaoAI：「For every digital life,Everyone has aXiaoyao of their own」：<https://project.xiaoyaosai.com/>**
 
 工作区「质检员」：只读扫描工作区健康度，输出分级报告 + 修复建议，永不修改任何文件。零依赖（Python 标准库）、纯本地、双平台。
 
